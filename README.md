@@ -1,1 +1,1 @@
-QAReportManager
+ReportManager
