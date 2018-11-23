@@ -46,7 +46,7 @@ public class Build {
 //	private Job job;
 
 	@Embedded
-	@OneToOne(mappedBy="build", cascade=CascadeType.ALL, fetch = FetchType.EAGER)	
+	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)	
 	@JoinColumn(referencedColumnName="build_id")
 	private BuildReport build_report;
 

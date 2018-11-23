@@ -53,9 +53,9 @@ public class BuildService {
 					.findAny().get();				
 				if(job.getBuilds()!= null && job.getBuilds().size() > 0) {					
 					for (Build build : job.getBuilds()) {												
-						BuildReport buildReport = build.getBuildReport();
+//						BuildReport buildReport = build.getBuildReport();
 //						buildReport.setBuildId(build.getId());
-//						buildReport.setBuild(build);
+//						buildReport.setBuild(build);						
 						build.setJobId(job.getId());
 						builds.add(build);						
 					}	
@@ -96,7 +96,7 @@ public class BuildService {
 				build.setDate(buildToUpdateOrSave.getDate());
 				build.setDuration(buildToUpdateOrSave.getDuration());
 				build.setResult(buildToUpdateOrSave.getResult());
-				build.setBuildReport(build.getBuildReport());				
+//				build.setBuildReport(build.getBuildReport());				
 				isNewBuild = false;
 			}
 		}

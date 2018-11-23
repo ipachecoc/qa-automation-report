@@ -31,9 +31,9 @@ public class BuildReport {
 	@Column(insertable = false, updatable = false)
 	private int build_id;
 	
-	@OneToOne()
-	@JoinColumn(name = "build_id", referencedColumnName="id")	
-	private Build build;
+//	@OneToOne()
+//	@JoinColumn(name = "build_id", referencedColumnName="id")	
+//	private Build build;
 
 	public int getId() {
 		return id;
