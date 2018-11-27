@@ -51,14 +51,21 @@ public class BuildService {
 				Job job = listOfJobs.stream()
 					.filter(j -> requestJob.getName().equalsIgnoreCase(j.getName()))
 					.findAny().get();				
-				if(job.getBuilds()!= null && job.getBuilds().size() > 0) {					
-					for (Build build : job.getBuilds()) {												
-//						BuildReport buildReport = build.getBuildReport();
-//						buildReport.setBuildId(build.getId());
-//						buildReport.setBuild(build);						
-						build.setJobId(job.getId());
-						builds.add(build);						
-					}	
+				if(job.getBuilds()!= null && job.getBuilds().size() > 0) {						
+					for (Build build : requestJob.getBuilds()) {					
+						Build tempBuild = job.getBuilds().stream()
+								.filter(b -> build.getName().equalsIgnoreCase(b.getName()))
+								.findAny().orElse(null);	
+						if(tempBuild == null) {
+//							BuildReport buildReport = build.getBuildReport();
+//							buildReport.setBuildId(build.getId());
+//							buildReport.setBuild(build);						
+							build.setJobId(job.getId());
+							build.setJob(job);
+							builds.add(build);	
+						}
+					}
+					
 				}else {					
 					for (Build build : requestJob.getBuilds()) {						
 						build.setJobId(job.getId());
@@ -96,12 +103,13 @@ public class BuildService {
 				build.setDate(buildToUpdateOrSave.getDate());
 				build.setDuration(buildToUpdateOrSave.getDuration());
 				build.setResult(buildToUpdateOrSave.getResult());
+				build.setJobId(buildToUpdateOrSave.getJobId());
 //				build.setBuildReport(build.getBuildReport());				
 				isNewBuild = false;
 			}
 		}
-		if (isNewBuild) {			
-			builds.add(buildToUpdateOrSave);
-		}
+				
+		builds.add(buildToUpdateOrSave);
+		
 	}
 }

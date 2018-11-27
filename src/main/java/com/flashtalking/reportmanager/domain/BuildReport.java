@@ -1,5 +1,6 @@
 package com.flashtalking.reportmanager.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 public class BuildReport {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 
 	private int total_tests;
 
@@ -28,18 +29,15 @@ public class BuildReport {
 	@Column(columnDefinition = "LONGTEXT")
 	private String xml;
 
-	@Column(insertable = false, updatable = false)
-	private int build_id;
-	
-//	@OneToOne()
-//	@JoinColumn(name = "build_id", referencedColumnName="id")	
-//	private Build build;
+	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "build_id", referencedColumnName="id")	
+	private Build build;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -65,13 +63,5 @@ public class BuildReport {
 
 	public void setXml(String xml) {
 		this.xml = xml;
-	}
-
-	public int getBuildId() {
-		return build_id;
-	}
-
-	public void setBuildId(int buildId) {
-		this.build_id = buildId;
 	}
 }

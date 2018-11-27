@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.flashtalking.reportmanager.ReportManagerApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 29.831 s - in com.flashtalking.reportmanager.ReportManagerApplicationTests

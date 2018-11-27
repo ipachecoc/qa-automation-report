@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.flashtalking.reportmanager.mappers.ResultType;
 
 @Entity
@@ -26,7 +27,7 @@ import com.flashtalking.reportmanager.mappers.ResultType;
 public class Build {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 	
 	@Column(name = "name")
 	private String name;
@@ -42,22 +43,22 @@ public class Build {
 	
 	private Date date;
 
-//	@ManyToOne
-//	private Job job;
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)	
+	private Job job;
 
 	@Embedded
 	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)	
-	@JoinColumn(referencedColumnName="build_id")
 	private BuildReport build_report;
 
 	@Column(insertable = false, updatable = false)
-	private int job_id;
+	private Long job_id;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -101,11 +102,11 @@ public class Build {
 		this.date = date;
 	}
 
-	public int getJobId() {
+	public Long getJobId() {
 		return job_id;
 	}
 
-	public void setJobId(int jobId) {
+	public void setJobId(Long jobId) {
 		this.job_id = jobId;
 	}
 
@@ -117,11 +118,11 @@ public class Build {
 		this.build_report = buildReport;
 	}
 
-//	public Job getJob() {
-//		return job;
-//	}
-//
-//	public void setJob(Job job) {
-//		this.job = job;
-//	}	
+	public Job getJob() {
+		return job;
+	}
+
+	public void setJob(Job job) {
+		this.job = job;
+	}	
 }

@@ -8,6 +8,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +25,9 @@ import com.flashtalking.reportmanager.models.JenkinsReportModel;
 import com.flashtalking.reportmanager.models.JobModel;
 import com.flashtalking.reportmanager.services.BuildService;
 import com.flashtalking.reportmanager.services.JobService;
+import static java.lang.Math.toIntExact;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("job")
 public class JobController {	
