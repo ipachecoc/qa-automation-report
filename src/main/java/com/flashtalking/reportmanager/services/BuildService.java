@@ -56,16 +56,19 @@ public class BuildService {
 						Build tempBuild = job.getBuilds().stream()
 								.filter(b -> build.getName().equalsIgnoreCase(b.getName()))
 								.findAny().orElse(null);	
-						if(tempBuild == null) {
-//							BuildReport buildReport = build.getBuildReport();
-//							buildReport.setBuildId(build.getId());
-//							buildReport.setBuild(build);						
+						if(tempBuild == null) {				
 							build.setJobId(job.getId());
 							build.setJob(job);
 							builds.add(build);	
+						}else {
+							if(build.getResult() != tempBuild.getResult()) {
+								build.setId(tempBuild.getId());
+								build.setJob(job);
+								build.setJobId(job.getId());
+								builds.add(build);
+							}
 						}
-					}
-					
+					}					
 				}else {					
 					for (Build build : requestJob.getBuilds()) {						
 						build.setJobId(job.getId());
@@ -80,6 +83,7 @@ public class BuildService {
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		
 		return null;
 	}
 
@@ -97,19 +101,15 @@ public class BuildService {
 	}
 
 	private void updateOrSave(List<Build> builds, Build buildToUpdateOrSave) {
-		boolean isNewBuild = true;
 		for (Build build : builds) {			
 			if (build.getName().equalsIgnoreCase(buildToUpdateOrSave.getName())) {				
 				build.setDate(buildToUpdateOrSave.getDate());
 				build.setDuration(buildToUpdateOrSave.getDuration());
 				build.setResult(buildToUpdateOrSave.getResult());
-				build.setJobId(buildToUpdateOrSave.getJobId());
-//				build.setBuildReport(build.getBuildReport());				
-				isNewBuild = false;
+				build.setJobId(buildToUpdateOrSave.getJobId());		
 			}
 		}
 				
-		builds.add(buildToUpdateOrSave);
-		
+		builds.add(buildToUpdateOrSave);	
 	}
 }
